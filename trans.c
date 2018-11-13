@@ -1,9 +1,9 @@
 #include "myas.h"
 
 //trans.c
+char* Reg[8] = { "%eax","%ecx","%edx","%ebx","%esp","%ebp","%esi","%edi"};
 extern int is_valid(char *op,char* argF,char* argB);
 extern int Check_kind(char *Sen);
-extern char* Reg[8];
 
 int RegCheck(char *regK){
         int i=0;
@@ -34,14 +34,14 @@ int instr_trans(char *op, char *args, char* mcode)
 	else{
 		if((Kind1==4) && (Kind2==4))
 			strcpy(opcode,"89");
-		else if((RegCheck(Kind1)==0) && (Kind2==3))
+		else if((RegCheck(argF)==0) && (Kind2==3))
 			strcpy(opcode,"a3");
 		else if((Kind1==3) && (Kind2==4))
 			strcpy(opcode,"8b");
-		else if((Kind1==3) && (RegCheck(Kind2)==0))
+		else if((Kind1==3) && (RegCheck(argB)==0))
 			strcpy(opcode,"a1");
 		else if((Kind1==2) && (Kind2==4)){
-			ITR += RegCheck(Kind2);
+			ITR += RegCheck(argB);
 			if(ITR >= 10)
 				ITR = 'a' + (ITR -10);
 			else

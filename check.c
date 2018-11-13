@@ -1,7 +1,6 @@
 #include "myas.h"
 
 //check.c
-char* Reg[8] = { "%eax","%ecx","%edx","%ebx","%esp","%ebp","%esi","%edi"};
 
 int Check_kind(char *Sen)
 {
