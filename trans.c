@@ -24,7 +24,7 @@ int instr_trans(char *op, char *args, char* mcode)
 	char *argB = strtok(NULL, ",");
 	int Kind1 = Check_kind(argF);
 	int Kind2 = Check_kind(argB);
-	char ITR = 8;
+	char ITR;
 
 	if(is_valid(op,argF,argB)==0){
 		printf("Error: %s %s is not valid\n",op,args);
@@ -41,14 +41,23 @@ int instr_trans(char *op, char *args, char* mcode)
 		else if((Kind1==3) && (RegCheck(argB)==0))
 			strcpy(opcode,"a1");
 		else if((Kind1==2) && (Kind2==4)){
-			ITR += RegCheck(argB);
-			if(ITR >= 10)
-				ITR = 'a' + (ITR -10);
+			ITR = RegCheck(argB);
+			if(ITR==0)
+				strcpy(opcode,"b8");
+			else if(ITR==1)
+				strcpy(opcode,"b9");
+			else if(ITR==2)
+				strcpy(opcode,"ba");
+			else if(ITR==3)
+				strcpy(opcode,"bb");
+			else if(ITR==4)
+				strcpy(opcode,"bc");
+			else if(ITR==5)
+				strcpy(opcode,"bd");
+			else if(ITR==6)
+				strcpy(opcode,"be");
 			else
-				ITR = ITR + '0';
-			opcode[0] = 'b';
-			opcode[1] = ITR;
-			opcode[2] = 0;	
+				strcpy(opcode,"bf");
 			}
 		else
 			strcpy(opcode,"err");
